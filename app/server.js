@@ -20,10 +20,7 @@ app.get('/profile-picture', function (req, res) {
   res.end(img, 'binary');
 });
 
-// use when starting application locally
 let mongoUrlLocal = "mongodb://admin:password@localhost:8001";
-
-// use when starting application as docker container
 let mongoUrlDocker = "mongodb://admin:password@mongodb";
 
 app.post('/update-profile', function (req, res) {
@@ -44,13 +41,13 @@ app.post('/update-profile', function (req, res) {
     });
 
   });
-  // Send response
+
   res.send(userObj);
 });
 
 app.get('/get-profile', function (req, res) {
   let response = {};
-  // Connect to the db
+
   MongoClient.connect(mongoUrlLocal, function (err, client) {
     if (err) throw err;
 
@@ -63,7 +60,6 @@ app.get('/get-profile', function (req, res) {
       response = result;
       client.close();
 
-      // Send response
       res.send(response ? response : {});
     });
   });
