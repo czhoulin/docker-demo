@@ -20,16 +20,14 @@ app.get('/profile-picture', function (req, res) {
   res.end(img, 'binary');
 });
 
-// use when starting application locally
-let mongoUrlLocal = "mongodb://admin:password@localhost:8001";
-
-// use when starting application as docker container
-let mongoUrlDocker = "mongodb://admin:password@mongodb";
+// Note we do not use "mongodb://admin:password@localhost:8001" anymore
+// When I connect a containerized app with another app, it checks the configuration in the docker-compose-yaml file.
+let mongoUrlDocker = "mongodb://admin:password@mongodb-compose";
 
 app.post('/update-profile', function (req, res) {
   let userObj = req.body;
 
-  MongoClient.connect(mongoUrlLocal, function (err, client) {
+  MongoClient.connect(mongoUrlDocker, function (err, client) {
     if (err) throw err;
 
     let db = client.db('carol-demo-db');
@@ -44,14 +42,14 @@ app.post('/update-profile', function (req, res) {
     });
 
   });
-  // Send response
+
   res.send(userObj);
 });
 
 app.get('/get-profile', function (req, res) {
   let response = {};
-  // Connect to the db
-  MongoClient.connect(mongoUrlLocal, function (err, client) {
+
+  MongoClient.connect(mongoUrlDocker, function (err, client) {
     if (err) throw err;
 
     let db = client.db('carol-demo-db');
@@ -63,7 +61,6 @@ app.get('/get-profile', function (req, res) {
       response = result;
       client.close();
 
-      // Send response
       res.send(response ? response : {});
     });
   });
