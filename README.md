@@ -54,5 +54,7 @@ OPTION 2
 
 #### Build a docker image of the app
 
-    docker build -t docker-demo-app:1.0 .       
+    docker build -t docker-demo-app:2.0 .   
+
+    Changed to connection to the mongo database as the app is containerized (removed localhost)    
 
