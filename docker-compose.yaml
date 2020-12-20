@@ -1,9 +1,12 @@
 version: '3'
 services:
   demo-app-compose:
-    image: carolinazzz/docker-demo-app:1.0
+    image: carolinazzz/docker-demo-app:2.0
     ports:
       - 8000:8000
+    environment:
+      - MONGO_DB_USERNAME=admin
+      - MONGO_DB_PWD=password
   mongodb-compose:
     image: mongo:4.4
     ports:
