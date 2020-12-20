@@ -28,6 +28,7 @@ OPTION 1
     -e MONGO_INITDB_ROOT_USERNAME=admin -e MONGO_INITDB_ROOT_PASSWORD=password \
     --name mongodb \
     --net carol-mongo-network \
+    -v mongo-data:/data/db
     mongo:4.4
 
     docker run -d \
